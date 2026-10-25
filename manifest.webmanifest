@@ -1,0 +1,145 @@
+{
+  "id": "./?source=pwa",
+  "name": "الأذكار اليومية - حصن المسلم",
+  "short_name": "الأذكار اليومية",
+  "description": "تطبيق الأذكار اليومية والمسبحة الإلكترونية مع العدادات والتوثيق والمظهر القابل للتخصيص.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "tabbed",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait-primary",
+  "theme_color": "#10b981",
+  "background_color": "#f8fafc",
+  "categories": [
+    "books",
+    "education",
+    "lifestyle"
+  ],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "واجهة الأذكار اليومية على الهاتف"
+    },
+    {
+      "src": "screenshots/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "واجهة الأذكار اليومية على سطح المكتب"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "بدء الأذكار",
+      "short_name": "الأذكار",
+      "description": "فتح ورد الأذكار اليومية",
+      "url": "./?task=adhkar",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "المسبحة الإلكترونية",
+      "short_name": "المسبحة",
+      "description": "فتح المسبحة الإلكترونية",
+      "url": "./?task=tasbeeh",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "الإعدادات",
+      "short_name": "الإعدادات",
+      "description": "فتح إعدادات المظهر",
+      "url": "./?task=settings",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "./share.html",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+adhkar",
+      "url": "./?protocol=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "./file-handler.html",
+      "accept": {
+        "text/plain": [
+          ".txt"
+        ],
+        "text/html": [
+          ".html",
+          ".htm"
+        ],
+        "application/json": [
+          ".json"
+        ]
+      }
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "note_taking": {
+    "new_note_url": "./?new=note"
+  }
+}

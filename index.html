@@ -325,15 +325,15 @@
         .dark .tasbeeh-pill.active { color: white; }
     </style>
 
-    <!-- PWA Meta Tags (أيقونات وبيانات مدمجة ذاتياً لا تحتاج اتصال) -->
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#10b981">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="الأذكار اليومية">
     <meta name="application-name" content="الأذكار اليومية">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2310b981'/><text x='50' y='68' font-size='54' text-anchor='middle'>🕌</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2310b981'/><text x='50' y='68' font-size='54' text-anchor='middle'>🕌</text></svg>">
-    <link rel="manifest" href='data:application/manifest+json,{"name":"الأذكار اليومية - حصن المسلم","short_name":"الأذكار اليومية","lang":"ar","dir":"rtl","start_url":"./","display":"standalone","background_color":"#020617","theme_color":"#10b981"}'>
+    <link rel="apple-touch-icon" href="./icon-192.png" onerror="this.href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%2310b981%22/><text x=%2250%22 y=%2268%22 font-size=%2254%22 text-anchor=%22middle%22>🕌</text></svg>'">
 
 </head>
 <body data-accent="emerald" data-font="tajawal" class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col islamic-bg transition-colors duration-300">
@@ -2021,11 +2021,11 @@
 
 
 
-    <!-- PWA deep-link helpers -->
+    <!-- PWA deep-link & Share Target helpers -->
     <script>
         window.addEventListener('load', () => {
             const params = new URLSearchParams(location.search);
-            const task = params.get('task');
+            const task = params.get('task') || params.get('new');
             if (task === 'tasbeeh' && typeof openModal === 'function') openModal('tasbeehModal');
             if (task === 'settings' && typeof openModal === 'function') openModal('settingsModal');
             if (task === 'note') {
@@ -2033,15 +2033,23 @@
                     if (typeof openModal === 'function' && document.getElementById('customDhikrModal')) openModal('customDhikrModal');
                 }, 300);
             }
-            if (navigator.serviceWorker) {
-                navigator.serviceWorker.addEventListener('message', e => {
-                    if (e.data && e.data.type === 'BACKGROUND_SYNC' && typeof showToast === 'function') {
-                        showToast('تمت مزامنة التطبيق بعد عودة الاتصال');
+            // استقبال النصوص المشاركة من تطبيقات أخرى (Share Target) وإضافتها كذكر خاص
+            const sharedTitle = params.get('title');
+            const sharedText = params.get('text');
+            if (sharedTitle || sharedText) {
+                setTimeout(() => {
+                    const titleIn = document.getElementById('customTitleInput');
+                    const textIn = document.getElementById('customTextInput');
+                    if (titleIn && textIn && typeof openModal === 'function') {
+                        titleIn.value = sharedTitle || 'ذكر مشارك';
+                        textIn.value = sharedText || sharedTitle || '';
+                        openModal('customDhikrModal');
                     }
-                });
+                }, 300);
             }
         });
     </script>
+
 
     <!-- PWA Service Worker (آمن للعمل محلياً file:// وعلى GitHub Pages) -->
     <script>
